@@ -8,7 +8,7 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -43,8 +43,7 @@ model User {
   email                 String?                @unique
   emailVerified         DateTime?
   image                 String?
-  phone                 String?
-  username              String?                @unique
+  phone                 String?                @unique
   role                  Int                    @default(0)
   password              String?
   isTwoFactorEnabled    Boolean                @default(false)
@@ -53,10 +52,12 @@ model User {
   accounts              Account[]
   sessions              Session[]
   Authenticator         Authenticator[]
+  progress              UserLetterProgress[] // پیشرفت کاربر در حروف و مراحل مختلف
+  answers               UserAnswer[] // پاسخ‌های کاربر به سوالات
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
-  @@unique([email, username])
+  @@unique([email, phone])
 }
 
 model VerificationToken {
@@ -76,7 +77,6 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
-
 model Authenticator {
   credentialID         String  @id @map("_id")
   userId               String  @db.ObjectId
@@ -90,4 +90,165 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
+}
+
+// Application-specific models
+
+// Represents a letter in the alphabet
+model Letter {
+  id           String           @id @default(auto()) @map("_id") @db.ObjectId
+  name         String           // The letter (e.g., "پ")
+  order        Int              // Order in the alphabet
+  isUnlocked   Boolean          @default(false) // Whether the letter is unlocked
+  syllables    Syllable[]       // Associated syllables
+  words        Word[]           // Associated words
+  sentences    Sentence[]       // Associated sentences
+  bigStory     BigStory?        // Associated big story
+  shortStories ShortStory[]     // Associated short stories
+  exercises    Exercise[]       // Associated exercises
+  progress     UserLetterProgress[] // User progress on this letter
+}
+
+// Represents a syllable associated with a letter
+model Syllable {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  letterId  String   @db.ObjectId
+  image     String   // Image showing pronunciation
+  audio     String   // Audio of the syllable
+  text      String   // Text with pronunciation marks
+  letter    Letter   @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Enum for the position of a letter in a word
+enum LetterPosition {
+  INITIAL  // Letter at the beginning of the word
+  MIDDLE   // Letter in the middle of the word
+  END      // Letter at the end of the word
+}
+
+// Represents a word associated with a letter
+model Word {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  letterId      String         @db.ObjectId
+  image         String         // Image representing the word
+  audio         String         // Audio of the word
+  text          String         // The word text
+  position      LetterPosition // Position of the letter in the word
+  letter        Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Represents a sentence associated with a letter
+model Sentence {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  letterId      String         @db.ObjectId
+  image         String         // Image representing the sentence
+  audio         String         // Audio of the sentence
+  text          String         // The sentence text
+  position      LetterPosition // Position of the letter in key words
+  letter        Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Represents the big story associated with a letter
+model BigStory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  letterId  String   @unique @db.ObjectId
+  slides    Slide[]  // Slides in the big story
+  letter    Letter   @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Represents a slide in a big story
+model Slide {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  bigStoryId String  @db.ObjectId
+  image     String   // Background image of the slide
+  audio     String   // Audio for the text
+  text      String   // Text displayed on the slide
+  order     Int      // Sequence order
+  bigStory  BigStory @relation(fields: [bigStoryId], references: [id], onDelete: Cascade)
+}
+
+// Represents a short story associated with a letter
+model ShortStory {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  letterId  String         @db.ObjectId
+  position  LetterPosition // Position of the letter in key words
+  image     String         // Image for the story
+  audio     String         // Audio of the story
+  text      String         // Story text
+  letter    Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Enum for different types of exercises
+enum ExerciseType {
+  TYPE_ONE   // Placeholder for future exercises
+  TYPE_TWO   // Exercise type two
+  TYPE_THREE // Exercise type three
+}
+
+// Represents an exercise associated with a letter
+model Exercise {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  letterId       String         @db.ObjectId
+  type           ExerciseType   // Type of exercise
+  questions      Question[]     // Questions in the exercise
+  letter         Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Represents a question in an exercise
+model Question {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  exerciseId   String     @db.ObjectId
+  questionText String     // Text of the question
+  options      Option[]   // Options available
+  correctAnswer String    // Correct answer
+  audio        String?    // Audio for the question
+  image        String?    // Image for the question
+  exercise     Exercise   @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  answers      UserAnswer[] // User answers to this question
+}
+
+// Represents an option for a question
+model Option {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  questionId  String    @db.ObjectId
+  text        String    // Option text
+  audio       String?   // Audio for the option
+  image       String?   // Image for the option
+  question    Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  UserAnswer UserAnswer[]
+}
+
+// Enum for different learning stages
+enum StageType {
+  SYLLABLES       // Stage 1
+  WORDS           // Stage 2
+  SENTENCES       // Stage 3
+  BIG_STORY       // Stage 4
+  SHORT_STORIES   // Stage 5
+  EXERCISES       // Stage 6
+}
+
+// Tracks user's progress on each letter and stage
+model UserLetterProgress {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String     @db.ObjectId
+  letterId    String     @db.ObjectId
+  stage       StageType  // Current stage
+  isCompleted Boolean    @default(false) // Completion status
+  completedAt DateTime?  // Completion timestamp
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  letter      Letter     @relation(fields: [letterId], references: [id], onDelete: Cascade)
+}
+
+// Records user's answers to questions
+model UserAnswer {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String     @db.ObjectId
+  questionId     String     @db.ObjectId
+  selectedOptionId String?  @db.ObjectId // Chosen option
+  isCorrect      Boolean    // Correctness of the answer
+  answeredAt     DateTime   @default(now())
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question       Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedOption Option?    @relation(fields: [selectedOptionId], references: [id], onDelete: Cascade)
 }
