@@ -1,38 +1,10 @@
-import { getAllLetter } from "@/actions/letter/getLetter";
-import Link from "next/link";
+import React from "react";
+import LetterBox from "@/components/letter/letterBox";
 
-export default async function page() {
-  const letters = await getAllLetter();
-
-  if (letters.error) {
-    return (
-      <>
-        <div>{letters.error}</div>
-      </>
-    );
-  }
-
-  console.log(letters.id);
-
+export default function page() {
   return (
-    <>
-      <div>
-        {letters.map((letter, key) => {
-          if (letter.isUnlocked) {
-            return (
-              <Link key={key} href={`/letter/${letter.id}`}>
-                <h1>{letter.name}</h1>
-              </Link>
-            );
-          } else {
-            return (
-              <Link key={key} href={`/letter/${letter.id}`}>
-                <h2>{letter.name}</h2>
-              </Link>
-            );
-          }
-        })}
-      </div>
-    </>
+    <div>
+      <LetterBox />
+    </div>
   );
 }
