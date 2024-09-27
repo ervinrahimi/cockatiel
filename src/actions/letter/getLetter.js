@@ -10,10 +10,10 @@ export const getAllLetter = async () => {
   return letter;
 };
 // Get Unqiue Letter From Database From Letter Data Collation
-export const getUnqiueLetter = async ({ params }) => {
+export const getUnqiueLetter = async (id) => {
   const letter = await prisma.letter.findUnique({
     where: {
-      id: name(params.id),
+      id: id,
     },
   });
 
@@ -22,11 +22,11 @@ export const getUnqiueLetter = async ({ params }) => {
   return letter;
 };
 // Get First Record From Database From Letter Data Collation
-export const getFirstLetter = async ({ params }) => {
+export const getFirstLetter = async (id) => {
   const letter = await prisma.letter.findFirst({
     where: {
       letter: {
-        name: name(params.id),
+        id: id,
       },
     },
   });

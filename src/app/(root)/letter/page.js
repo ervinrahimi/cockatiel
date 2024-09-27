@@ -1,22 +1,37 @@
 import { getAllLetter } from "@/actions/letter/getLetter";
+import Link from "next/link";
 
 export default async function page() {
-  const letter = await getAllLetter();
+  const letters = await getAllLetter();
 
-  if (letter.error) {
+  if (letters.error) {
     return (
       <>
-        <div>{letter.error}</div>
+        <div>{letters.error}</div>
       </>
     );
   }
 
+  console.log(letters.id);
+
   return (
     <>
       <div>
-        {letter.map((letters, key) => (
-          <h1 key={key}>{letters.name}</h1>
-        ))}
+        {letters.map((letter, key) => {
+          if (letter.isUnlocked) {
+            return (
+              <Link key={key} href={`/letter/${letter.id}`}>
+                <h1>{letter.name}</h1>
+              </Link>
+            );
+          } else {
+            return (
+              <Link key={key} href={`/letter/${letter.id}`}>
+                <h2>{letter.name}</h2>
+              </Link>
+            );
+          }
+        })}
       </div>
     </>
   );
