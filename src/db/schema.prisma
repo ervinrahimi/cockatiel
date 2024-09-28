@@ -107,6 +107,8 @@ model Letter {
   shortStories ShortStory[]     // Associated short stories
   exercises    Exercise[]       // Associated exercises
   progress     UserLetterProgress[] // User progress on this letter
+  createdAt    DateTime         @default(now()) // Date letter was created
+  updatedAt    DateTime         @updatedAt // Date letter was updated
 }
 
 // Represents a syllable associated with a letter
@@ -117,6 +119,8 @@ model Syllable {
   audio     String   // Audio of the syllable
   text      String   // Text with pronunciation marks
   letter    Letter   @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) // Date word was created
+  updatedAt DateTime @updatedAt // Date word was updated
 }
 
 // Enum for the position of a letter in a word
@@ -135,6 +139,8 @@ model Word {
   text          String         // The word text
   position      LetterPosition // Position of the letter in the word
   letter        Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt     DateTime       @default(now()) // Date word was created
+  updatedAt     DateTime       @updatedAt // Date word was updated
 }
 
 // Represents a sentence associated with a letter
@@ -146,6 +152,8 @@ model Sentence {
   text          String         // The sentence text
   position      LetterPosition // Position of the letter in key words
   letter        Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt     DateTime       @default(now()) // Date sentence was created
+  updatedAt     DateTime       @updatedAt // Date sentence was updated
 }
 
 // Represents the big story associated with a letter
@@ -154,6 +162,8 @@ model BigStory {
   letterId  String   @unique @db.ObjectId
   slides    Slide[]  // Slides in the big story
   letter    Letter   @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) // Date big story was created
+  updatedAt DateTime @updatedAt // Date big story was updated
 }
 
 // Represents a slide in a big story
@@ -176,6 +186,8 @@ model ShortStory {
   audio     String         // Audio of the story
   text      String         // Story text
   letter    Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt DateTime       @default(now()) // Date short story was created
+  updatedAt DateTime       @updatedAt // Date short story was updated
 }
 
 // Enum for different types of exercises
@@ -192,6 +204,8 @@ model Exercise {
   type           ExerciseType   // Type of exercise
   questions      Question[]     // Questions in the exercise
   letter         Letter         @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt      DateTime       @default(now()) // Date exercise was created
+  updatedAt      DateTime       @updatedAt // Date exercise was updated
 }
 
 // Represents a question in an exercise
@@ -238,6 +252,8 @@ model UserLetterProgress {
   completedAt DateTime?  // Completion timestamp
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   letter      Letter     @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now()) // Date progress record was created
+  updatedAt   DateTime   @updatedAt // Date progress record was updated
 }
 
 // Records user's answers to questions
@@ -251,4 +267,6 @@ model UserAnswer {
   user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   question       Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
   selectedOption Option?    @relation(fields: [selectedOptionId], references: [id], onDelete: Cascade)
+  createdAt      DateTime   @default(now()) // Date answer record was created
+  updatedAt      DateTime   @updatedAt // Date answer record was updated
 }
