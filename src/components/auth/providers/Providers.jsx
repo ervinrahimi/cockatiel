@@ -14,9 +14,9 @@ export default function Providers() {
 
   return (
     <div>
-      <button onClick={() => signInWithProvider('google')}>
+      {/* <button onClick={() => signInWithProvider('google')}>
         Google
-      </button>
+      </button> */}
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import { login } from '@/actions/auth/login'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import styles from './LoginForm.module.css'
 
 export default function LoginForm() {
   const {
@@ -20,9 +21,10 @@ export default function LoginForm() {
   const [success, setSuccess] = useState('')
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl')
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-  ? "Email already in use with different provider!"
-  : "";
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already in use with different provider!'
+      : ''
 
   const onSubmit = async (data) => {
     setError('')
@@ -48,26 +50,47 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-    {showTwoFactor && (
-      <>
-        <input disabled={isSubmitting} type="text" placeholder="Two Factor Code" {...register('code')} />
-        {errors.code && <p>{errors.code.message}</p>}
-      </>
-    )}
-    {!showTwoFactor && (
-      <>
-        <input disabled={isSubmitting} type="email" placeholder="Email" {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-        <input disabled={isSubmitting} type="password" placeholder="Password" {...register('password')} />
-        {errors.password && <p>{errors.password.message}</p>}
-      </>
-    )}
-    <FormError message={error || urlError} />
-    <FormSuccess message={success} />
-    <button type="submit" disabled={isSubmitting}>
-      {showTwoFactor ? 'Confirm' : 'Login'}
-    </button>
-  </form>
+    <div className={styles.backgroundContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        {showTwoFactor && (
+          <>
+            <input
+              disabled={isSubmitting}
+              type="text"
+              placeholder="Two Factor Code"
+              {...register('code')}
+              className={styles.input}
+            />
+            {errors.code && <p className={styles.errorMessage}>{errors.code.message}</p>}
+          </>
+        )}
+        {!showTwoFactor && (
+          <>
+            <input
+              disabled={isSubmitting}
+              type="email"
+              placeholder="Email"
+              {...register('email')}
+              className={styles.input}
+            />
+            {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+            <input
+              disabled={isSubmitting}
+              type="password"
+              placeholder="Password"
+              {...register('password')}
+              className={styles.input}
+            />
+            {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
+          </>
+        )}
+        <button type="submit" disabled={isSubmitting} className={styles.button}>
+          {showTwoFactor ? 'Confirm' : 'Login'}
+        </button>
+
+        {/* دکمه گوگل زیر دکمه لاگین */}
+        <button className={styles.googleButton}>Login with Google</button>
+      </form>
+    </div>
   )
 }
