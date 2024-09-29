@@ -21,7 +21,7 @@ export default async function AllLetters({ data, userProgress }) {
         previousIsCompleted = progressMap.get(letter.id)?.isCompleted || false;
 
         return isUnlocked ? (
-          <Link key={letter.id} href={`/letter/${letter.id}`} className={styles.letterLink}>
+          <Link key={letter.id} href={`/letters/${letter.id}`} className={styles.letterLink}>
             <h1 className={styles.unlockedLetter}>{letter.name}</h1>
           </Link>
         ) : (

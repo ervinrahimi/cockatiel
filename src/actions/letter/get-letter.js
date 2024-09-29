@@ -38,8 +38,13 @@ export const getSingleLetterForStage = async (id, stage) => {
   if (stage === 'SYLLABLES') includeFields.syllables = true
   else if (stage === 'WORDS') includeFields.words = true
   else if (stage === 'SENTENCES') includeFields.sentences = true
-  else if (stage === 'BIG_STORY') includeFields.bigStory = true
-  else if (stage === 'SHORT_STORIES') includeFields.shortStories = true
+  else if (stage === 'BIG_STORY') {
+    includeFields.bigStory = {
+      include: {
+        slides: true, // اضافه کردن ارتباط با slides
+      },
+    }
+  } else if (stage === 'SHORT_STORIES') includeFields.shortStories = true
   else if (stage === 'EXERCISES') includeFields.exercises = true
 
   const letter = await prisma.letter.findUnique({
@@ -50,6 +55,5 @@ export const getSingleLetterForStage = async (id, stage) => {
   })
 
   if (!letter) return { error: 'هیچ حرفی با این مشخصات وجود ندارد!' }
-
   return letter
 }
