@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import React from 'react'
 
-export default async function LetterDetailItems({ data, progress }) {
+export default function LetterDetailItems({ data, progress }) {
   // Stages in order
   const stages = [
-    { id: 'syllables', title: 'هجا (همخوان)', stageEnum: 'SYLLABLES' },
-    { id: 'words', title: 'کلمات', stageEnum: 'WORDS' },
-    { id: 'sentences', title: 'جملات', stageEnum: 'SENTENCES' },
-    { id: 'bigStory', title: 'داستان بزرگ', stageEnum: 'BIG_STORY' },
-    { id: 'shortStories', title: 'داستان‌های کوتاه', stageEnum: 'SHORT_STORIES' },
-    { id: 'exercises', title: 'تمرینات', stageEnum: 'EXERCISES' },
+    { id: '0', title: 'هجا (همخوان)', stageEnum: 'SYLLABLES' },
+    { id: '1', title: 'کلمات', stageEnum: 'WORDS' },
+    { id: '2', title: 'جملات', stageEnum: 'SENTENCES' },
+    { id: '3', title: 'داستان بزرگ', stageEnum: 'BIG_STORY' },
+    { id: '4', title: 'داستان‌های کوتاه', stageEnum: 'SHORT_STORIES' },
+    { id: '5', title: 'تمرینات', stageEnum: 'EXERCISES' },
   ]
 
   // Function that determines which stages are unlocked
@@ -35,7 +35,7 @@ export default async function LetterDetailItems({ data, progress }) {
       <ul>
         {unlockedStages.map((stage) => (
           <li key={stage.id}>
-            {stage.isUnlocked ? <Link href={`/${stage.id}`}><span>{stage.title}</span></Link> : <span>{stage.title} 🔒</span>}
+            {stage.isUnlocked ? <Link href={`/letters/${data.id}/${stage.stageEnum}`}><span>{stage.title}</span></Link> : <span>{stage.title} 🔒</span>}
           </li>
         ))}
       </ul>

@@ -6,7 +6,8 @@ import { ROUTES } from "./constants/routes"
  * @type {string[]}
  */
 export const MW_PRIVATE_ROUTES = [
-  ROUTES.ADMIN.MAIN
+  ROUTES.ADMIN.MAIN,
+  ROUTES.ROOT.LETTERS
 ]
 
 /**

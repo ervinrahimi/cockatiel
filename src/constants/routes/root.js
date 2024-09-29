@@ -9,5 +9,5 @@ const MAIN = '/'
 
 export const ROOT_ROUTES = {
   MAIN: MAIN,  
-  COURSE: '/course'
+  LETTERS: '/letters',
 };

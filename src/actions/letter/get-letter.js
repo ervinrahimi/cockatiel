@@ -26,6 +26,29 @@ export const getSingleLetter = async (id, userId) => {
     },
   })
 
+  if (!letter || !letter.progress.length > 0) return { error: 'هیچ حرفی با این مشخصات وجود ندارد!' }
+
+  return letter
+}
+
+export const getSingleLetterForStage = async (id, stage) => {
+  let includeFields = {}
+
+  // بررسی stage و اضافه کردن فیلد مناسب به includeFields
+  if (stage === 'SYLLABLES') includeFields.syllables = true
+  else if (stage === 'WORDS') includeFields.words = true
+  else if (stage === 'SENTENCES') includeFields.sentences = true
+  else if (stage === 'BIG_STORY') includeFields.bigStory = true
+  else if (stage === 'SHORT_STORIES') includeFields.shortStories = true
+  else if (stage === 'EXERCISES') includeFields.exercises = true
+
+  const letter = await prisma.letter.findUnique({
+    where: {
+      id: id,
+    },
+    include: includeFields, // شامل کردن فیلدهای لازم براساس stage
+  })
+
   if (!letter) return { error: 'هیچ حرفی با این مشخصات وجود ندارد!' }
 
   return letter
