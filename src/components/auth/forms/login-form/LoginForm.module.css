@@ -1,0 +1,80 @@
+.backgroundContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://images.hdqwalls.com/wallpapers/prismatic-dimensions-crystal-shapes-in-5k-vn.jpg'); /* مسیر تصویر */
+  background-size: cover; /* تصویر کل صفحه رو پوشش بده */
+  background-position: center; /* تصویر را در مرکز قرار بده */
+  background-repeat: no-repeat; /* جلوگیری از تکرار تصویر */
+}
+
+.form {
+  width: 350px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* لبه شیشه‌ای */
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1); /* پس زمینه شفاف */
+  backdrop-filter: blur(5px); /* جلوه شیشه‌ای */
+  color: white; /* رنگ متن */
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* رنگ placeholder شفاف */
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0066ff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.googleButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #db4437;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.googleButton:hover {
+  background-color: #c33729;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 480px) {
+  .form {
+    width: 100%;
+    margin: 20px;
+    padding: 15px;
+  }
+}

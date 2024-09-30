@@ -6,6 +6,8 @@ import { resgisterSchema } from '@/security/zod/auth-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import styles from './RegisterForm.module.css'
+import Link from 'next/link'
 
 export default function RegisterForm() {
   const {
@@ -29,16 +31,35 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input disabled={isSubmitting} type="text" placeholder="Email" {...register('email')} />
-      {errors.email && <p>{errors.email.message}</p>}
-      <input disabled={isSubmitting} type="password" placeholder="Password (8+ characters)" {...register('password')} />
-      {errors.password && <p>{errors.password.message}</p>}
-      <FormError message={error} />
-      <FormSuccess message={success} />
-      <button type="submit" disabled={isSubmitting}>
-        Register
-      </button>
-  </form>
+    <div className={styles.backgroundContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <input
+          disabled={isSubmitting}
+          type="text"
+          placeholder="Email"
+          {...register('email')}
+          className={styles.input}
+        />
+        {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+        <input
+          disabled={isSubmitting}
+          type="password"
+          placeholder="Password (8+ characters)"
+          {...register('password')}
+          className={styles.input}
+        />
+        {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <button type="submit" disabled={isSubmitting} className={styles.button}>
+          ثبت نام
+        </button>
+        <>
+        <div>
+          <Link href='login'>اکانت داری ؟ خب ورود کن</Link>
+        </div>
+        </>
+      </form>
+    </div>
   )
 }

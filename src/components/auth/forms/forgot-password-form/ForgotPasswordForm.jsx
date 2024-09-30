@@ -6,6 +6,7 @@ import { forgotPassword } from '@/actions/auth/forgot-password'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import styles from './ForgotPasswordForm.module.css'
 import React from 'react'
 
 export default function ForgotPasswordForm() {
@@ -30,14 +31,22 @@ export default function ForgotPasswordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input disabled={isSubmitting} type="email" placeholder="Email" {...register('email')} />
-      {errors.email && <p>{errors.email.message}</p>}
-      <FormError message={error} />
-      <FormSuccess message={success} />
-      <button type="submit" disabled={isSubmitting}>
-        Send email
-      </button>
-    </form>
+    <div className={styles.backgroundContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <input
+          disabled={isSubmitting}
+          type="email"
+          placeholder="Email"
+          {...register('email')}
+          className={styles.input}
+        />
+        {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <button type="submit" disabled={isSubmitting} className={styles.button}>
+          Send email
+        </button>
+      </form>
+    </div>
   )
 }
