@@ -8,6 +8,7 @@ import { login } from '@/actions/auth/login'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import styles from './LoginForm.module.css'
+import Link from 'next/link'
 
 export default function LoginForm() {
   const {
@@ -85,11 +86,19 @@ export default function LoginForm() {
           </>
         )}
         <button type="submit" disabled={isSubmitting} className={styles.button}>
-          {showTwoFactor ? 'Confirm' : 'Login'}
+          {showTwoFactor ? 'Confirm' : 'لاگین'}
         </button>
 
         {/* دکمه گوگل زیر دکمه لاگین */}
-        <button className={styles.googleButton}>Login with Google</button>
+        <button className={styles.googleButton}>لاگین با اکانت گوگل</button>
+        <>
+        <div>
+          <Link href='forgot-password'>فراموشی رمز عبور</Link>  
+        </div>
+        <div>
+          <Link href='register'>اکانت نداری ؟ یه دونه جدید بساز</Link>
+        </div>
+        </>
       </form>
     </div>
   )

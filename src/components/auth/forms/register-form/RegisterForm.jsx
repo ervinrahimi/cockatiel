@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import styles from './RegisterForm.module.css'
+import Link from 'next/link'
 
 export default function RegisterForm() {
   const {
@@ -51,8 +52,13 @@ export default function RegisterForm() {
         <FormError message={error} />
         <FormSuccess message={success} />
         <button type="submit" disabled={isSubmitting} className={styles.button}>
-          Register
+          ثبت نام
         </button>
+        <>
+        <div>
+          <Link href='login'>اکانت داری ؟ خب ورود کن</Link>
+        </div>
+        </>
       </form>
     </div>
   )
