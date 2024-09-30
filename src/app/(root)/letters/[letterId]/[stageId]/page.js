@@ -1,5 +1,6 @@
 import SyllablesStage from '@/components/letter/stage/syllabes-stage/SyllablesStage'
 import SentencesStage from '@/components/letter/stage/sentences-stage/SentencesStage'
+import ExercisesStage from '@/components/letter/stage/exercises-stage/ExercisesStage'
 import WordsStage from '@/components/letter/stage/words-stage/WordsStage'
 import { getSingleLetterForStage } from '@/actions/letter/get-letter'
 import { ROUTES } from '@/constants/routes'
@@ -27,6 +28,10 @@ export default async function LetterStagePage({ params }) {
 
   if (stageId === 'SENTENCES') {
     return <SentencesStage letter={letter} userId={session.user.id} stageId={stageId} />
+  }
+
+  if (stageId === 'EXERCISES') {
+    return <ExercisesStage letter={letter} userId={session.user.id} stageId={stageId} />
   }
 
   return <div>این مرحله هنوز پیاده‌سازی نشده است.</div>

@@ -1,0 +1,29 @@
+.letterBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.letterLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
+  text-decoration: none;
+}
+
+.unlockedLetter {
+  font-size: 2rem;
+  color: black;
+  margin: 0;
+}
+
+.lockedLetter {
+  font-size: 2rem;
+  color: red;
+  margin: 0;
+}

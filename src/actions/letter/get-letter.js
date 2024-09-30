@@ -13,7 +13,8 @@ export const getAllLetter = async () => {
 
 // Get Unique Letter From Database Along with User Progress
 export const getSingleLetter = async (id, userId) => {
-  const letter = await prisma.letter.findUnique({
+  // ابتدا بررسی کنید آیا کاربر برای این حرف progress دارد یا خیر
+  let letter = await prisma.letter.findUnique({
     where: {
       id: id,
     },
@@ -26,7 +27,33 @@ export const getSingleLetter = async (id, userId) => {
     },
   })
 
-  if (!letter || !letter.progress.length > 0) return { error: 'هیچ حرفی با این مشخصات وجود ندارد!' }
+  // اگر letter وجود نداشت یا پیشرفتی برای کاربر ثبت نشده بود، رکورد پیشرفت جدیدی بسازید
+  if (!letter) return { error: 'هیچ حرفی با این مشخصات وجود ندارد!' }
+
+  if (letter.progress.length === 0) {
+    // ایجاد یک رکورد جدید در جدول progress برای این کاربر و حرف
+    await prisma.userLetterProgress.create({
+      data: {
+        userId: userId,
+        letterId: id,
+        stage: 'SYLLABLES', // کاربر از مرحله هجا شروع می‌کند
+      },
+    })
+
+    // مجدداً درخواست را برای گرفتن پیشرفت به روز شده ارسال کنید
+    letter = await prisma.letter.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        progress: {
+          where: {
+            userId: userId,
+          },
+        },
+      },
+    })
+  }
 
   return letter
 }
