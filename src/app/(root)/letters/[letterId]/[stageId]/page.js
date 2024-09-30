@@ -32,8 +32,6 @@ export default async function LetterStagePage({ params }) {
     return <SentencesStage letter={letter} userId={session.user.id} stageId={stageId} />
   }
 
-<<<<<<< HEAD
-=======
   if (stageId === 'EXERCISES') {
     return <ExercisesStage letter={letter} userId={session.user.id} stageId={stageId} />
   }
@@ -44,7 +42,6 @@ export default async function LetterStagePage({ params }) {
 
   if (stageId === 'SHORT_STORIES') {
     return <ShortstoryStage letter={letter} userId={session.user.id} stageId={stageId} />
->>>>>>> Components
   }
 
   return <div>این مرحله هنوز پیاده‌سازی نشده است.</div>
