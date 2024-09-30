@@ -1,13 +1,23 @@
 'use client'
 import { updateUserProgress } from '@/actions/progress/update-progress'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function SyllablesStage({ letter, userId, stageId }) {
+export default function BigstoryStage({ letter, userId, stageId }) {
   const router = useRouter()
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const syllables = letter.syllables || []
-  const totalQuestions = syllables.length
+
+  // بررسی داده‌های letter
+  useEffect(() => {
+    console.log('Letter Data: ', letter) // مطمئن شوید که داده‌ها درست به کامپوننت رسیده‌اند
+  }, [letter])
+
+  // اگر bigStory وجود داشت، از آن استفاده می‌کنیم، در غیر این صورت آرایه خالی
+  const bigStory = letter.bigStory || {}
+  const slides = bigStory.slides || [] // استخراج اسلایدها از bigStory
+  const totalQuestions = slides.length
+
+  console.log(bigStory)
 
   const stageOrder = ['SYLLABLES', 'WORDS', 'SENTENCES', 'BIG_STORY', 'SHORT_STORIES', 'EXERCISES']
 
@@ -31,8 +41,8 @@ export default function SyllablesStage({ letter, userId, stageId }) {
 
   return (
     <div>
-      <h1>آزمون هجا (همخوان) برای حرف {letter.name}</h1>
-      {syllables.length > 0 ? (
+      <h1>داستان های بزرگ کلمه {letter.name}</h1>
+      {slides.length > 0 ? (
         <div>
           {/* <Image
             src={words[currentQuestion].image}
@@ -41,7 +51,7 @@ export default function SyllablesStage({ letter, userId, stageId }) {
             height={100}
             quality={100}
           /> */}
-          <p>{syllables[currentQuestion].text}</p>
+          <p>{slides[currentQuestion].text}</p> {/* نمایش متن هر اسلاید */}
           <div>
             <button onClick={handlePrevious} disabled={currentQuestion === 0}>
               قبلی
