@@ -54,6 +54,8 @@ model User {
   Authenticator         Authenticator[]
   progress              UserLetterProgress[] // پیشرفت کاربر در حروف و مراحل مختلف
   answers               UserAnswer[] // پاسخ‌های کاربر به سوالات
+  tickets               Ticket[] 
+  messages              TicketMessage[]
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
@@ -90,6 +92,64 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
+}
+
+
+// Department model
+model Department {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   // e.g., Technical, Support, etc.
+  tickets   Ticket[]
+}
+
+// Enum for Ticket Priority
+enum TicketPriority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+// Enum for Ticket Status
+enum TicketStatus {
+  WAITING_FOR_SUPPORT  // "منتظر پشتیبان"
+  UNDER_REVIEW         // "درحال بررسی"
+  WAITING_FOR_USER     // "منتظر کاربر"
+  CLOSED               // "بسته شده"
+}
+
+// Model to store ticket number counter
+model TicketCounter {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  sequence   Int    @default(0) // The current ticket number sequence
+}
+
+// Ticket model
+model Ticket {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  ticketNumber  Int             
+  userId        String          @db.ObjectId
+  departmentId  String          @db.ObjectId
+  priority      TicketPriority
+  status        TicketStatus    @default(WAITING_FOR_SUPPORT)
+  title         String
+  lastUpdatedAt DateTime        @updatedAt
+  messages      TicketMessage[]
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department    Department      @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt 
+}
+
+// TicketMessage model
+model TicketMessage {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  ticketId   String   @db.ObjectId
+  senderId   String   @db.ObjectId  // References User (could be admin or user)
+  message    String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt 
 }
 
 // Application-specific models
