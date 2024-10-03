@@ -20,6 +20,7 @@ export default function SentencesStage({ letter, userId, stageId }) {
       // آپدیت کردن پروگرس کاربر و بازگشت به صفحه اصلی
       await updateUserProgress(userId, letter.id, stageOrder[currentIndex + 1])
       router.push(`/letters/${letter.id}`)
+      router.refresh()
     }
   }
 

@@ -7,7 +7,7 @@ import styles from './TicketForm.module.css'
 export default function TicketForm({ departments, onSubmit, userId }) {
   const [formData, setFormData] = useState({
     departmentId: '',
-    priority: 'MEDIUM',
+    priority: 'MEDIUM', // مقدار پیش‌فرض برای اولویت
     title: '',
     message: '',
   })
@@ -39,11 +39,13 @@ export default function TicketForm({ departments, onSubmit, userId }) {
           ))}
         </select>
       </div>
+
       <div>
         <label className={styles.label}>اولویت</label>
         <select
           className={styles.select}
           name="priority"
+          value={formData.priority} // نمایش مقدار پیش‌فرض MEDIUM
           onChange={handleChange}
           required
         >
@@ -52,6 +54,7 @@ export default function TicketForm({ departments, onSubmit, userId }) {
           <option value="LOW">کم</option>
         </select>
       </div>
+
       <div>
         <label className={styles.label}>عنوان</label>
         <input
@@ -62,6 +65,7 @@ export default function TicketForm({ departments, onSubmit, userId }) {
           required
         />
       </div>
+
       <div>
         <label className={styles.label}>متن تیکت</label>
         <textarea
@@ -71,6 +75,7 @@ export default function TicketForm({ departments, onSubmit, userId }) {
           required
         />
       </div>
+
       <button className={styles.button} type="submit">
         ارسال
       </button>

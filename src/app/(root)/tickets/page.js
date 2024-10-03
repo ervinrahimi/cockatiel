@@ -2,6 +2,7 @@
 import TicketList from '@/components/ticket/ticket-list/TicketList'
 import { getUserTickets } from '@/actions/ticket/get-ticket'
 import { auth } from '@/security/auth'
+import Link from 'next/link'
 
 export default async function TicketsPage() {
   const session = await auth()
@@ -10,6 +11,9 @@ export default async function TicketsPage() {
   return (
     <div>
       <h1>لیست تیکت‌های من</h1>
+      <button>
+        <Link href='/tickets/new'>تیکت جدید</Link>
+      </button>
       <TicketList tickets={tickets} />
     </div>
   )
