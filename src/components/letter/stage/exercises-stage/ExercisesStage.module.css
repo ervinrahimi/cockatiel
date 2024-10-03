@@ -1,29 +1,44 @@
-.letterBox {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-  max-width: 400px;
-  margin: 0 auto;
+/* src/components/ExercisesStage.module.css */
+.container {
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.letterLink {
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  margin: 1rem 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  width: 100px;
-  height: 100px;
-  text-decoration: none;
+  justify-content: flex-start;
 }
 
-.unlockedLetter {
-  font-size: 2rem;
-  color: black;
-  margin: 0;
+.button {
+  padding: 0.75rem 1.5rem;
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+  border: none;
+  border-radius: var(--border-radius-accent);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.lockedLetter {
-  font-size: 2rem;
-  color: red;
-  margin: 0;
+.button:hover {
+  background-color: rgb(var(--primary-dark-rgb));
+}
+
+.noExercises {
+  font-size: 1.25rem;
+  color: rgb(var(--foreground-alt-rgb));
 }

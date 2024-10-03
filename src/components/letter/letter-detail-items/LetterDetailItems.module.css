@@ -1,0 +1,60 @@
+/* src/components/LetterDetailItems.module.css */
+.container {
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: var(--border-radius-accent);
+  background-color: rgb(var(--background-accent-rgb));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.listItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.link {
+  font-size: 1.25rem;
+  color: rgb(var(--primary-main-rgb));
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: rgb(var(--primary-dark-rgb));
+}
+
+.locked {
+  font-size: 1.25rem;
+  color: rgb(var(--foreground-alt-rgb));
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.lockIcon {
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
+}

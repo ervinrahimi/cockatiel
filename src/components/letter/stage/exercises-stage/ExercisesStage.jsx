@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import styles from './ExercisesStage.module.css'
 
 export default function ExercisesStage({ letter, userId, stageId }) {
   const router = useRouter()
@@ -9,7 +10,7 @@ export default function ExercisesStage({ letter, userId, stageId }) {
 
   // اگر هیچ تمرینی وجود نداشت
   if (exercises.length === 0) {
-    return <div>هیچ تمرینی برای این حرف وجود ندارد.</div>
+    return <div className={styles.noExercises}>هیچ تمرینی برای این حرف وجود ندارد.</div>
   }
 
   // عملکرد برای هدایت به صفحه‌ی تمرین خاص
@@ -19,12 +20,12 @@ export default function ExercisesStage({ letter, userId, stageId }) {
   }
 
   return (
-    <div>
-      <h2>لیست تمرین‌ها برای حرف {letter.name}</h2>
-      <ul>
+    <div className={styles.container}>
+      <h2 className={styles.title}>لیست تمرین‌ها برای حرف {letter.name}</h2>
+      <ul className={styles.list}>
         {exercises.map((exercise, index) => (
-          <li key={exercise.id}>
-            <button onClick={() => handleExerciseClick(exercise.id)}>
+          <li key={exercise.id} className={styles.listItem}>
+            <button className={styles.button} onClick={() => handleExerciseClick(exercise.id)}>
               تمرین {index + 1} - نوع: {exercise.type}
             </button>
           </li>

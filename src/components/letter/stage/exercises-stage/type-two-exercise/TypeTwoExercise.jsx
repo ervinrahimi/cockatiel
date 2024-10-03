@@ -1,8 +1,10 @@
+// src/components/TypeTwoExercise.js
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { saveUserAnswer } from '@/actions/answer/save-answer'
 import { checkAndUpdateExerciseCompletion } from '@/actions/progress/update-progress'
+import styles from './TypeTwoExercise.module.css'
 
 export default function TypeTwoExercise({ exercise, userId, letterId }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -37,13 +39,12 @@ export default function TypeTwoExercise({ exercise, userId, letterId }) {
       setIsCorrect(null) // بازنشانی وضعیت برای سوال بعدی
     } else {
       // تمام سوالات پاسخ داده شده است
-      // فراخوانی تابع برای چک کردن کامل شدن تمرین
       const result = await checkAndUpdateExerciseCompletion({ userId, letterId })
 
       if (result.success) {
-        
+        // تمرین با موفقیت کامل شد
       } else {
-        
+        // خطا در بروزرسانی
       }
 
       router.push(`/letters/${letterId}/EXERCISES`)
@@ -53,28 +54,31 @@ export default function TypeTwoExercise({ exercise, userId, letterId }) {
   const currentQ = exercise.questions[currentQuestion]
 
   return (
-    <div>
-      <h2>تمرین چیستان - سوال {currentQuestion + 1} از {totalQuestions}</h2>
-      {/* نمایش چیستان و تصویر */}
-      <p>{currentQ.questionText}</p>
-      {/* {currentQ.image && <img src={currentQ.image} alt={`سوال ${currentQuestion + 1}`} style={{ width: '300px', height: '200px' }} />} */}
+    <div className={styles.container}>
+      <h2 className={styles.title}>
+        تمرین چیستان - سوال {currentQuestion + 1} از {totalQuestions}
+      </h2>
+      <p className={styles.question}>{currentQ.questionText}</p>
 
       {/* ورودی برای پاسخ کاربر */}
       <input
+        className={styles.input}
         type="text"
         value={userAnswer}
         onChange={(e) => setUserAnswer(e.target.value)}
         placeholder="جواب چیستان را وارد کنید"
       />
-      <button onClick={handleAnswer}> ارسال پاسخ </button>
+      <button className={styles.button} onClick={handleAnswer}>
+        ارسال پاسخ
+      </button>
 
       {/* نمایش وضعیت پاسخ */}
-      {isCorrect === true && <p style={{ color: 'green' }}>پاسخ صحیح است!</p>}
-      {isCorrect === false && <p style={{ color: 'red' }}>پاسخ اشتباه است!</p>}
+      {isCorrect === true && <p className={styles.correctMessage}>پاسخ صحیح است!</p>}
+      {isCorrect === false && <p className={styles.incorrectMessage}>پاسخ اشتباه است!</p>}
 
       {/* دکمه رفتن به سوال بعدی در صورت پاسخ صحیح */}
       {isCorrect === true && (
-        <button onClick={handleNextQuestion}>
+        <button className={styles.button} onClick={handleNextQuestion}>
           {currentQuestion < totalQuestions - 1 ? 'سوال بعدی' : 'اتمام تمرین'}
         </button>
       )}

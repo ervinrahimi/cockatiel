@@ -1,29 +1,47 @@
+/* src/components/AllLetters.module.css */
 .letterBox {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-  max-width: 400px;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
 }
 
 .letterLink {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
   width: 100px;
   height: 100px;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.letterLink:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .unlockedLetter {
   font-size: 2rem;
-  color: black;
-  margin: 0;
+  color: rgb(var(--primary-main-rgb));
 }
 
 .lockedLetter {
   font-size: 2rem;
-  color: red;
-  margin: 0;
+  color: rgb(var(--foreground-alt-rgb));
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.unlockedLetter:hover {
+  color: rgb(var(--primary-dark-rgb));
+}
+
+.lockedLetter {
+  color: rgb(var(--foreground-accent-rgb));
 }

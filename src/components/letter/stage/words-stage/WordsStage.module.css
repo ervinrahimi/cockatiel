@@ -1,0 +1,56 @@
+/* src/components/WordsStage.module.css */
+.container {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.75rem;
+  color: rgb(var(--foreground-main-rgb));
+  margin-bottom: 2rem;
+}
+
+.image {
+  margin-bottom: 1rem;
+}
+
+.text {
+  font-size: 1.25rem;
+  color: rgb(var(--foreground-accent-rgb));
+  margin-bottom: 2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-accent);
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:disabled {
+  background-color: rgb(var(--foreground-alt-rgb));
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: rgb(var(--primary-dark-rgb));
+}
+
+.noData {
+  font-size: 1.25rem;
+  color: rgb(var(--error-rgb));
+  margin-top: 2rem;
+}

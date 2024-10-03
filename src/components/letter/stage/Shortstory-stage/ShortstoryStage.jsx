@@ -1,7 +1,9 @@
+// src/components/ShortstoryStage.js
 'use client'
 import { updateUserProgress } from '@/actions/progress/update-progress'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import styles from './ShortstoryStage.module.css'
 
 export default function ShortstoryStage({ letter, userId, stageId }) {
   const router = useRouter()
@@ -16,7 +18,6 @@ export default function ShortstoryStage({ letter, userId, stageId }) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
       const currentIndex = stageOrder.findIndex((stage) => stage === stageId)
-      console.log(stageOrder[currentIndex + 1])
       // آپدیت کردن پروگرس کاربر و بازگشت به صفحه اصلی
       await updateUserProgress(userId, letter.id, stageOrder[currentIndex + 1])
       router.push(`/letters/${letter.id}`)
@@ -30,29 +31,26 @@ export default function ShortstoryStage({ letter, userId, stageId }) {
   }
 
   return (
-    <div>
-      <h1>داستان های کوتاه با کلمه {letter.name}</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>داستان های کوتاه با کلمه {letter.name}</h1>
       {shortStories.length > 0 ? (
         <div>
-          {/* <Image
-            src={words[currentQuestion].image}
-            alt={`Syllable ${currentQuestion + 1}`}
-            width={100}
-            height={100}
-            quality={100}
-          /> */}
-          <p>{shortStories[currentQuestion].text}</p>
-          <div>
-            <button onClick={handlePrevious} disabled={currentQuestion === 0}>
+          <p className={styles.storyText}>{shortStories[currentQuestion].text}</p>
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.button}
+              onClick={handlePrevious}
+              disabled={currentQuestion === 0}
+            >
               قبلی
             </button>
-            <button onClick={handleNext}>
+            <button className={styles.button} onClick={handleNext}>
               {currentQuestion < totalQuestions - 1 ? 'بعدی' : 'اتمام'}
             </button>
           </div>
         </div>
       ) : (
-        <p>هیچ داده‌ای برای این مرحله وجود ندارد</p>
+        <p className={styles.emptyMessage}>هیچ داده‌ای برای این مرحله وجود ندارد</p>
       )}
     </div>
   )

@@ -1,0 +1,77 @@
+/* src/components/TypeOneExercise.module.css */
+.container {
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.questionText {
+  font-size: 1.25rem;
+  margin: 1rem 0;
+  color: rgb(var(--foreground-accent-rgb));
+}
+
+.optionList {
+  list-style: none;
+  padding: 0;
+}
+
+.optionItem {
+  margin: 0.5rem 0;
+}
+
+.optionButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius-accent);
+  border: 2px solid rgb(var(--primary-main-rgb));
+  background-color: transparent;
+  color: rgb(var(--primary-main-rgb));
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+}
+
+.optionButton:hover {
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+}
+
+.statusMessage {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+
+.successMessage {
+  color: rgb(var(--success-rgb));
+}
+
+.errorMessage {
+  color: rgb(var(--error-rgb));
+}
+
+.nextButton {
+  padding: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius-start);
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.nextButton:hover {
+  background-color: rgb(var(--primary-dark-rgb));
+}

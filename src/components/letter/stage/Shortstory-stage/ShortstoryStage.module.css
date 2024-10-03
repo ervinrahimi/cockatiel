@@ -1,0 +1,57 @@
+/* src/components/ShortstoryStage.module.css */
+.container {
+  padding: 2rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.storyText {
+  font-size: 1.25rem;
+  color: rgb(var(--foreground-accent-rgb));
+  margin: 1rem 0;
+  line-height: 1.6;
+  padding: 1rem;
+  background-color: rgb(var(--background-accent-rgb));
+  border-radius: var(--border-radius-accent);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-accent);
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:disabled {
+  background-color: rgb(var(--foreground-alt-rgb));
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: rgb(var(--primary-dark-rgb));
+}
+
+.emptyMessage {
+  font-size: 1.25rem;
+  color: rgb(var(--foreground-alt-rgb));
+}

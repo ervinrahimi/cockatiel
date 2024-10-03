@@ -1,5 +1,7 @@
+// src/components/LetterDetailItems.js
 import Link from 'next/link'
 import React from 'react'
+import styles from './LetterDetailItems.module.css'
 
 export default function LetterDetailItems({ data, progress }) {
   // Stages in order
@@ -30,12 +32,20 @@ export default function LetterDetailItems({ data, progress }) {
   const unlockedStages = determineUnlockedStages(progress)
 
   return (
-    <div>
-      <h1>آموزش و تمرینات حرف {data.name}</h1>
-      <ul>
+    <div className={styles.container}>
+      <h1 className={styles.title}>آموزش و تمرینات حرف {data.name}</h1>
+      <ul className={styles.list}>
         {unlockedStages.map((stage) => (
-          <li key={stage.id}>
-            {stage.isUnlocked ? <Link href={`/letters/${data.id}/${stage.stageEnum}`}><span>{stage.title}</span></Link> : <span>{stage.title} 🔒</span>}
+          <li key={stage.id} className={styles.listItem}>
+            {stage.isUnlocked ? (
+              <Link href={`/letters/${data.id}/${stage.stageEnum}`}>
+                <span className={styles.link}>{stage.title}</span>
+              </Link>
+            ) : (
+              <span className={styles.locked}>
+                {stage.title} <span className={styles.lockIcon}>🔒</span>
+              </span>
+            )}
           </li>
         ))}
       </ul>
