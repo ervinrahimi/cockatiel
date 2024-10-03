@@ -13,7 +13,7 @@ export default async function TicketChatPage({ params }) {
     <div>
       <TicketDetails ticket={ticket} />
       <ChatMessages messages={ticket.messages} />
-      <MessageForm ticketId={ticket.id} onSubmit={sendMessage} />
+      <MessageForm ticketId={ticket.id} onSubmit={sendMessage} userId={session.user.id} />
     </div>
   )
 }

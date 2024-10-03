@@ -1,13 +1,16 @@
 // src/app/admin/tickets/page.js
+import { getAllTickets } from '@/actions/ticket/get-all-admin-ticket'
+import { getDepartments } from '@/actions/ticket/get-ticket'
+import AdminTicketList from '@/components/ticket/admin-ticket-list/AdminTicketList'
+import TicketFilters from '@/components/ticket/ticket-filter/TicketFilters'
+import { ROUTES } from '@/constants/routes'
 import { auth } from '@/security/auth'
-import { getAllTickets } from '@/actions/ticket/adminTicketActions'
-import AdminTicketList from '@/components/AdminTicketList'
-import TicketFilters from '@/components/TicketFilters'
+import { redirect } from 'next/navigation'
 
 export default async function AdminTicketsPage() {
   const session = await auth()
   if (session.user.role !== 1) {
-    redirect('/auth/signin')
+    redirect(ROUTES.AUTH.LOGIN)
   }
 
   const tickets = await getAllTickets()

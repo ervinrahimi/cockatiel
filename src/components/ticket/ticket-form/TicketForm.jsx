@@ -2,8 +2,9 @@
 'use client'
 
 import { useState } from 'react'
+import styles from './TicketForm.module.css'
 
-export default function TicketForm({ departments, onSubmit }) {
+export default function TicketForm({ departments, onSubmit, userId }) {
   const [formData, setFormData] = useState({
     departmentId: '',
     priority: 'MEDIUM',
@@ -17,14 +18,19 @@ export default function TicketForm({ departments, onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await onSubmit(formData)
+    await onSubmit({ ...formData, userId })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div>
-        <label>دپارتمان</label>
-        <select name="departmentId" onChange={handleChange} required>
+        <label className={styles.label}>دپارتمان</label>
+        <select
+          className={styles.select}
+          name="departmentId"
+          onChange={handleChange}
+          required
+        >
           <option value="">انتخاب کنید</option>
           {departments.map((dept) => (
             <option key={dept.id} value={dept.id}>
@@ -34,22 +40,40 @@ export default function TicketForm({ departments, onSubmit }) {
         </select>
       </div>
       <div>
-        <label>اولویت</label>
-        <select name="priority" onChange={handleChange} required>
+        <label className={styles.label}>اولویت</label>
+        <select
+          className={styles.select}
+          name="priority"
+          onChange={handleChange}
+          required
+        >
           <option value="HIGH">زیاد</option>
           <option value="MEDIUM">متوسط</option>
           <option value="LOW">کم</option>
         </select>
       </div>
       <div>
-        <label>عنوان</label>
-        <input type="text" name="title" onChange={handleChange} required />
+        <label className={styles.label}>عنوان</label>
+        <input
+          className={styles.input}
+          type="text"
+          name="title"
+          onChange={handleChange}
+          required
+        />
       </div>
       <div>
-        <label>متن تیکت</label>
-        <textarea name="message" onChange={handleChange} required />
+        <label className={styles.label}>متن تیکت</label>
+        <textarea
+          className={styles.textarea}
+          name="message"
+          onChange={handleChange}
+          required
+        />
       </div>
-      <button type="submit">ارسال</button>
+      <button className={styles.button} type="submit">
+        ارسال
+      </button>
     </form>
   )
 }

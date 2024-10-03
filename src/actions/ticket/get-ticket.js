@@ -2,6 +2,7 @@
 'use server'
 
 import prisma from "@/db/client"
+import { revalidatePath } from "next/cache"
 
 // Server Action to fetch all departments
 export async function getDepartments() {

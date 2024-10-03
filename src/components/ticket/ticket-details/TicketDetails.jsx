@@ -1,24 +1,28 @@
 // src/components/TicketDetails.js
 import Link from 'next/link'
+import styles from './TicketDetails.module.css'
 
 export default function TicketDetails({ ticket }) {
   return (
-    <div>
-      <h2>جزئیات تیکت</h2>
-      <p>موضوع: {ticket.title}</p>
-      <p>اولویت: {translatePriority(ticket.priority)}</p>
-      <p>
-        آخرین بروزرسانی:{' '}
-        {new Date(ticket.lastUpdatedAt).toLocaleString('fa-IR')}
+    <div className={styles.container}>
+      <h2 className={styles.title}>جزئیات تیکت</h2>
+      <p className={styles.detailItem}>موضوع: {ticket.title}</p>
+      <p className={styles.detailItem}>
+        اولویت: {translatePriority(ticket.priority)}
       </p>
-      <p>وضعیت: {translateStatus(ticket.status)}</p>
-      <div>
+      <p className={styles.detailItem}>
+        آخرین بروزرسانی: {new Date(ticket.lastUpdatedAt).toLocaleString('fa-IR')}
+      </p>
+      <p className={styles.detailItem}>وضعیت: {translateStatus(ticket.status)}</p>
+      <div className={styles.buttonContainer}>
         <Link href="/tickets/new">
-          <button>ساختن تیکت جدید</button>
+          <button className={styles.button}>ساختن تیکت جدید</button>
         </Link>
         {ticket.status !== 'CLOSED' && (
           <form action={`/tickets/${ticket.id}/close`} method="POST">
-            <button type="submit">بستن تیکت</button>
+            <button className={styles.button} type="submit">
+              بستن تیکت
+            </button>
           </form>
         )}
       </div>

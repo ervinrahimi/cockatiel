@@ -1,0 +1,35 @@
+/* src/components/TicketList.module.css */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.th, .td {
+  text-align: right;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgb(var(--foreground-alt-rgb));
+}
+
+.th {
+  background-color: rgb(var(--background-alt-rgb));
+  font-weight: bold;
+}
+
+.td {
+  background-color: rgb(var(--background-main-rgb));
+}
+
+.tr:hover {
+  background-color: rgb(var(--background-accent-rgb));
+}
+
+.link {
+  color: rgb(var(--primary-main-rgb));
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: rgb(var(--primary-dark-rgb));
+}

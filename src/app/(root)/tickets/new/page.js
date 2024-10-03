@@ -11,7 +11,7 @@ export default async function NewTicketPage() {
   return (
     <div>
       <h1>ایجاد تیکت جدید</h1>
-      <TicketForm departments={departments} onSubmit={createTicket} />
+      <TicketForm departments={departments} onSubmit={createTicket} userId={session.user.id} />
     </div>
   )
 }

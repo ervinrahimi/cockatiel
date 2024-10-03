@@ -1,0 +1,42 @@
+/* src/components/ChatMessages.module.css */
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgb(var(--background-main-rgb));
+  border-radius: var(--border-radius-main);
+  max-width: 100%;
+}
+
+.message {
+  padding: 1rem;
+  border-radius: var(--border-radius-accent);
+  background-color: rgb(var(--background-alt-rgb));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.messageSender {
+  font-weight: bold;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.supportTag {
+  color: rgb(var(--secondary-dark-rgb));
+}
+
+.messageTimestamp {
+  color: rgb(var(--foreground-alt-rgb));
+  margin-left: 0.5rem;
+}
+
+.messageContent {
+  margin-top: 0.5rem;
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.hr {
+  border: none;
+  border-bottom: 1px solid rgb(var(--foreground-accent-rgb));
+  margin-top: 1rem;
+}

@@ -1,0 +1,58 @@
+/* src/components/TicketForm.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-main);
+  background-color: rgb(var(--background-accent-rgb));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.select,
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-accent);
+  border: 1px solid rgb(var(--foreground-accent-rgb));
+  font-size: 1rem;
+  background-color: rgb(var(--background-main-rgb));
+  color: rgb(var(--foreground-main-rgb));
+}
+
+.select:focus,
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: rgb(var(--primary-dark-rgb));
+}
+
+.textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-start);
+  background-color: rgb(var(--primary-main-rgb));
+  color: rgb(var(--button-text-rgb));
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(var(--primary-dark-rgb));
+}

@@ -2,25 +2,27 @@
 'use client'
 
 import { useState } from 'react'
+import styles from './AdminMessageForm.module.css'
 
-export default function AdminMessageForm({ ticketId, onSubmit }) {
+export default function AdminMessageForm({ ticketId, onSubmit, adminId }) {
   const [message, setMessage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await onSubmit({ ticketId, message })
+    await onSubmit({ ticketId, message, adminId })
     setMessage('')
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <textarea
+        className={styles.textarea}
         name="message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         required
       />
-      <button type="submit">ارسال پاسخ</button>
+      <button className={styles.button} type="submit">ارسال پاسخ</button>
     </form>
   )
 }
